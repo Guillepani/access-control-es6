@@ -1,3 +1,4 @@
+//Importa una librería nativa de Node.js
 import crypto from 'node:crypto';
 
 // Genera un UUID (identificador único)
@@ -41,5 +42,31 @@ export const createUser = ({
     contactEmails,
     passwordHash,
     scope,
+  };
+};
+
+/*
+Crea una organización (nivel ORGANIZATION).
+- name: nombre comercial
+- cif: identificador fiscal (CIF/NIF según caso)
+- phone/email: contacto opcional
+*/
+
+export const createOrganization = ({
+  name,
+  cif,
+  phone = null,
+  email = null,
+  active = true,
+} = {}) => {
+  if (!name) throw new Error('createOrganization: name is required');
+  if (!cif) throw new Error('createOrganization: cif is required');
+
+  return {
+    ...withCommonFields({ active }),
+    name,
+    cif,
+    phone,
+    email,
   };
 };
