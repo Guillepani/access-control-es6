@@ -101,7 +101,29 @@ export const createNetwork = ({
   };
 };
 
+export const createCompany = ({
+  networkId,
+  name,
+  cif,
+  phone = null,
+  email = null,
+  notes = null,
+  active = true,
+} = {}) => {
+  if (!networkId) throw new Error("createCompany: networkId is required");
+  if (!name) throw new Error("createCompany: name is required");
+  if (!cif) throw new Error("createCompany: cif is required");
 
+  return {
+    ...withCommonFields ({ active }),
+    networkId,
+    name,
+    cif,
+    phone,
+    email,
+    notes,
+  };
+};
 
 
 
