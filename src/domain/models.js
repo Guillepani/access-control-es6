@@ -91,7 +91,7 @@ export const createNetwork = ({
   if (!name) throw new Error("createNetwork: name is required");
 
   return {
-    ...withCommonFiles ({ active }),
+    ...withCommonFields ({ active }),
     organizationId,
     taxId,
     name,
