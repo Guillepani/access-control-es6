@@ -101,6 +101,13 @@ export const createNetwork = ({
   };
 };
 
+/*
+crea una empresa (COMPANY) dentro de una red.
+- networkId: a qué red pertenece
+- name: nombre de la empresa
+- cif: CIF de la empresa
+- phone, email y notes opcionales
+*/
 export const createCompany = ({
   networkId,
   name,
@@ -124,6 +131,38 @@ export const createCompany = ({
     notes,
   };
 };
+
+/*
+crea un trabajador (WORKER) dentro de una empresa.
+- companyId: a qué empresa pertenece
+- name: nombre del trabajador
+- taxId: DNI/NIF del trabajador
+- email, phone y notes opcionales
+*/
+export const createWorker = ({
+  companyId,
+  name,
+  taxId,
+  email = null,
+  phone = null,
+  notes = null,
+  active = true,
+} = {}) => {
+  if (!companyId) throw new Error("createWorker: companyId is required");
+  if (!name) throw new Error("createWorker: name is required");
+  if (!taxId) throw new Error("createWorker: taxId is required");
+
+  return {
+    ...withCommonFields({ active }),
+    companyId,
+    name,
+    taxId,
+    email,
+    phone,
+    notes,
+  };
+};
+
 
 
 
