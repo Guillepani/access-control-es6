@@ -8,7 +8,7 @@ export const generateId = () => crypto.randomUUID();
 export const nowIso = () => new Date().toISOString();
 
 // Campos comunes que tendrán todas las entidades "administrables"
-export const withCommonFields = ({
+export const withCommonFields = ({ 
   id = generateId(),
   active = true,
 } = {}) => ({
@@ -24,8 +24,8 @@ Crea un usuario del sistema (login + perfil).
  - contactEmails: emails extra del perfil (opcionales)
  - scope: a qué nivel pertenece (org/network/company/worker)
 */
-export const createUser = ({
-  role,
+export const createUser = ({ 
+  role, 
   loginEmail,
   passwordHash = 'TODO_HASH',
   contactEmails = [],
@@ -51,7 +51,6 @@ Crea una organización (nivel ORGANIZATION).
 - cif: identificador fiscal (CIF/NIF según caso)
 - phone/email: contacto opcional
 */
-
 export const createOrganization = ({
   name,
   cif,
@@ -70,3 +69,59 @@ export const createOrganization = ({
     email,
   };
 };
+
+/*
+Crea una red (NETWORK) dentro de una organización.
+- organizationId: a qué Organization pertenece
+- taxId: identificador fiscal de la red
+- name: nombre de la red
+- phone/email/notes: opcionales
+*/
+export const createNetwork = ({
+  organizationId,
+  taxId,
+  name,
+  phone = null,
+  email = null,
+  notes = null,
+  active = true,
+} = {}) => {
+  if (!organizationId) throw new Error("createNetwork: organizationId is required");
+  if (!taxId) throw new Error("createNetwork: taxId is required");
+  if (!name) throw new Error("createNetwork: name is required");
+
+  return {
+    ...withCommonFiles ({ active }),
+    organizationId,
+    taxId,
+    name,
+    phone,
+    email,
+    notes,
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
