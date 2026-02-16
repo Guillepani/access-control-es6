@@ -9,3 +9,13 @@ export const ROLES = Object.freeze({
   COMPANY: "COMPANY",
   WORKER: "WORKER",
 });
+
+//Acciones básicas que se pueden ejecutar sobre un recurso
+export const ACTIONS = Object.freeze({
+  CREATE: "CREATE",
+  READ: "READ",
+  UPDATE: "UPDATE",
+  DELETE: "DELETE",
+  ACTIVATE: "ACTIVATE",
+  DEACTIVATE: "DEACTIVATE",
+});
