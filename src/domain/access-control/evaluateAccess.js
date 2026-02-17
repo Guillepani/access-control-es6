@@ -18,7 +18,7 @@ export const evaluateAccess = ({ user, action, resource } = {}) => {
   if (!isRoleAllowed({ role: user.role, action, recordType: resource.recordType })) 
     return { allowed: false, reason: "RBAC: acción no permitida para este rol" };
   
-//si ninguna regla anterior permite el acceso -> denegar acceso
-  return { allowed: false, reason: "Acces denied"};
+//si llega aquí pasando las validaciones: permitir acceso
+  return { allowed: true, reason: "RBAC: permitido" };
 };
 
