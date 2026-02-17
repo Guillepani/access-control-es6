@@ -1,8 +1,7 @@
 // RBAC: comprobación de permisos por rol/acción/tipo
-import { ROLES, isRoleAllowed } from "./permissions.js";
+import { ROLES, ACTIONS, RECORD_TYPES, isRoleAllowed } from "./permissions.js";
 
-
-/**
+/*
  * Motor central de autorización.
  * Evalúa si un usuario puede ejecutar una acción sobre un recurso.
  * No accede a base de datos ni modifica nada.
@@ -14,6 +13,12 @@ export const evaluateAccess = ({ user, action, resource } = {}) => {
   if (!resource) return { allowed: false, reason: "Missing resource" };
   if (!user.active) return { allowed: false, reason: "User inactive" };
   if (user.role === ROLES.GOD) return { allowed: true, reason: "GOD can access everything" };
+  if (!Object.values(ACTIONS).includes(action))
+    return { allowed: false, reason: "Invalid action" };
+
+  if (!Object.values(RECORD_TYPES).includes(resource.recordType))
+    return { allowed: false, reason: "Invalid recordType" };
+
 //RBAC: si el rol no tiene permitido (acción + tipo), se deniega
   if (!isRoleAllowed({ role: user.role, action, recordType: resource.recordType })) 
     return { allowed: false, reason: "RBAC: acción no permitida para este rol" };
